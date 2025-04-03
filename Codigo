@@ -21,7 +21,7 @@ def automata_pertenece_a_L(w):
             else:
                 return False 
     
-    return (k + s) % 3 == 0 and (k + s) == t 
+    return (k + s) % 3 == 0 and (k + s) == t #revisamos primeras condiciones para aceptar cadenas
 def dividir_w(w, n):
     u = ""
     v = ""
