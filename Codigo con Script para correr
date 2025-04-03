@@ -2,7 +2,7 @@ import random
 
 def automata_pertenece_a_L(w):
     estado = 'q0'
-    k = s = t = 0
+    k = s = t = 0 #iniciamos contadores para las secciones de la cadena
     
     for caracter in w:
         if estado == 'q0':
@@ -21,9 +21,9 @@ def automata_pertenece_a_L(w):
             if caracter == 'a':
                 t += 1
             else:
-                return False
+                return False #revisamos que no alla otro caracter diferente a 'a' y a 'b'
     
-    return (k + s) % 3 == 0 and (k + s) == t and k > 0 and s > 0
+    return (k + s) % 3 == 0 and (k + s) == t and k > 0 and s > 0 #revisamos primeras condiciones para aceptar cadenas
 
 def dividir_w(w, n):
     u = ""
@@ -64,22 +64,22 @@ def simulate_game(trials):
 
     
     for _ in range(trials):
-        n = random.randint(8, 30)
-        w = generate_valid_string(n)  # Generate a valid string in L
+        n = random.randint(8, 30) #tamaño aleatorio para la cadena
+        w = generate_valid_string(n)  #cadena valida en L
         
-        u, v, x = dividir_w(w, n)  # Use the division strategy from the game
-        m = random.choice([0, 2, 3, 4, 5])  # Simulate player choosing a random m
+        u, v, x = dividir_w(w, n)  #divide la cadena en u,v,x
+        m = random.choice([0, 2, 3, 4, 5])  # escoge m aleatoria 
         
-        z = u + (v * m) + x  # Generate the new word after pumping
+        z = u + (v * m) + x  #nueva cadena despues del bombeo
         
         if automata_pertenece_a_L(z):
-            player_wins += 1
+            player_wins += 1 #Jugador gana, la cadena sigue perteneciendo a L
         else:
-            machine_wins += 1
+            machine_wins += 1 #maquina gana, la cadena ya no pertenece a L
     
-    machine_win_rate = machine_wins / trials
+    machine_win_rate = machine_wins / trials # Se calcula de las simulaciones de los juegos, cuantas veces gana el jugador y la maquina
     print(f"Machine Win Rate: {machine_win_rate * 100:.2f}%")
     print(f"Player Win Rate: {100 - (machine_win_rate * 100):.2f}%")
 
 if __name__ == "__main__":
-    simulate_game(100)
+    simulate_game(100) #100 simulaciones del juego
