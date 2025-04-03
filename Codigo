@@ -19,6 +19,27 @@ def automata_pertenece_a_L(w):
             if caracter == 'a':
                 t += 1
             else:
-                return False
+                return False 
     
     return (k + s) % 3 == 0 and (k + s) == t 
+def dividir_w(w, n):
+    u = ""
+    v = ""
+    x = ""
+    
+    # Ajuste: Garantizar que |v| > 0 y mantener la validez del lema del bombeo
+    # Estamos Usando Chatgpt para el punto de b de 90% de ganancia del codigo 
+    limite_u = max(1, n // 4)
+    limite_v = limite_u + max(1, (n - limite_u) // 3)  # v tiene al menos 1 caracter
+    
+    contador = 0
+    for caracter in w:
+        if contador < limite_u:
+            u += caracter
+        elif contador < limite_v:
+            v += caracter
+        else:
+            x += caracter
+        contador += 1
+    
+    return u, v, x
