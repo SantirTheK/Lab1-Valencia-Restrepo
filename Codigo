@@ -2,7 +2,7 @@ import random
 
 def automata_pertenece_a_L(w):
     estado = 'q0'
-    k = s = t = 0
+    k = s = t = 0 #iniciamos contadores para las secciones de la cadena
     
     for caracter in w:
         if estado == 'q0':
@@ -21,7 +21,7 @@ def automata_pertenece_a_L(w):
             if caracter == 'a':
                 t += 1
             else:
-                return False 
+                return False #revisamos que no alla otro caracter diferente a 'a' y a 'b'
     
     return (k + s) % 3 == 0 and (k + s) == t #revisamos primeras condiciones para aceptar cadenas
 def dividir_w(w, n):
@@ -67,21 +67,21 @@ def obtener_cadena_valida(n):
     
     return u, v, x
 def jugar():
-    n = random.randint(8, 30)
+    n = random.randint(8, 30) #tamaño aleatorio para la cadena
     print(f"Número aleatorio n generado: {n}")
-    w = obtener_cadena_valida(n)
+    w = obtener_cadena_valida(n) #cadena valida en L
     
-    u, v, x = dividir_w(w, n)
+    u, v, x = dividir_w(w, n) #divide la cadena en u,v,x
     print(f"Cadena dividida en: u='{u}', v='{v}', x='{x}'")
     
-    m = int(input("Ingrese un número natural m (puede ser 0): "))
+    m = int(input("Ingrese un número natural m (puede ser 0): ")) # toma valor aleatorio de m
     z = u + (v * m) + x
-    print(f"Nueva cadena generada: {z}")
+    print(f"Nueva cadena generada: {z}") #nueva cadena despues del bombeo
     
     if automata_pertenece_a_L(z):
-        print("¡Ganaste! La cadena aún pertenece a L.")
+        print("¡Ganaste! La cadena aún pertenece a L.") #Jugador gana, la cadena sigue perteneciendo a L
     else:
-        print("La máquina gana. La cadena ya no pertenece a L.")
+        print("La máquina gana. La cadena ya no pertenece a L.") #maquina gana, la cadena ya no pertenece a L
 
 
 jugar()
