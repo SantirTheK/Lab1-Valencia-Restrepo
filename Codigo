@@ -39,6 +39,17 @@ def dividir_w(w, n):
         elif contador < limite_v:
             v += caracter
         else:
+def obtener_cadena_valida(n):
+    while True:
+        w = input(f"Ingrese una cadena sobre {'a', 'b'} con longitud >= {n} y que pertenezca a L: ")
+        
+        contador = 0
+        for _ in w:
+            contador += 1
+        
+        if contador >= n and automata_pertenece_a_L(w):
+            return w
+        print("La cadena ingresada no pertenece a L o es demasiado corta. Intente de nuevo.")
             x += caracter
         contador += 1
     
