@@ -26,19 +26,30 @@ def dividir_w(w, n):
     u = ""
     v = ""
     x = ""
-    
+
+    probabilidad = random.random()
+
+    if probabilidad < 0.9: # 90% de las veces, la division hace perder al jugador
     # Ajuste: Garantizar que |v| > 0 y mantener la validez del lema del bombeo
     # Estamos Usando Chatgpt para el punto de b de 90% de ganancia del codigo 
-    limite_u = max(1, n // 4)
-    limite_v = limite_u + max(1, (n - limite_u) // 3)  # v tiene al menos 1 caracter
-    
-    contador = 0
-    for caracter in w:
-        if contador < limite_u:
-            u += caracter
-        elif contador < limite_v:
-            v += caracter
+        if 'b' in w:
+            indice_b = w.index('b')
+            u = w[:indice_b]  # Hasta el primer 'b'
+            v = w[indice_b:indice_b + 1]  # Solo la 'b'
+            x = w[indice_b + 1:]  # Resto de la cadena
         else:
+            u = w[:n//3]
+            v = w[n//3:2*n//3]
+            x = w[2*n//3:]
+    else:
+        # 10% de las veces, la división es justa
+        tam_u = random.randint(1, len(w) // 3)
+        tam_v = random.randint(1, (len(w) - tam_u) // 2)
+        u = w[:tam_u]
+        v = w[tam_u:tam_u + tam_v]
+        x = w[tam_u + tam_v:]
+    
+    return u, v, x
 def obtener_cadena_valida(n):
     while True:
         w = input(f"Ingrese una cadena sobre {'a', 'b'} con longitud >= {n} y que pertenezca a L: ")
