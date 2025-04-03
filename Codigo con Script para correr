@@ -1,0 +1,85 @@
+import random
+
+def automata_pertenece_a_L(w):
+    estado = 'q0'
+    k = s = t = 0
+    
+    for caracter in w:
+        if estado == 'q0':
+            if caracter == 'a':
+                k += 1
+            else:
+                estado = 'q1'
+                s += 1
+        elif estado == 'q1':
+            if caracter == 'b':
+                s += 1
+            else:
+                estado = 'q2'
+                t += 1
+        elif estado == 'q2':
+            if caracter == 'a':
+                t += 1
+            else:
+                return False
+    
+    return (k + s) % 3 == 0 and (k + s) == t and k > 0 and s > 0
+
+def dividir_w(w, n):
+    u = ""
+    v = ""
+    x = ""
+    
+    probabilidad = random.random()
+    
+    if probabilidad < .2:
+        # 90% de las veces, la división hace perder al jugador con un patrón estratégico
+        if 'b' in w:
+            indice_b = w.index('b')
+            u = w[:indice_b]  # Hasta el primer 'b'
+            v = w[indice_b:indice_b + 1]  # Solo la 'b'
+            x = w[indice_b + 1:]  # Resto de la cadena
+        else:
+            u = w[:n//3]
+            v = w[n//3:2*n//3]
+            x = w[2*n//3:]
+    else:
+        # 10% de las veces, la división es justa
+        tam_u = random.randint(1, len(w) // 3)
+        tam_v = random.randint(1, (len(w) - tam_u) // 2)
+        u = w[:tam_u]
+        v = w[tam_u:tam_u + tam_v]
+        x = w[tam_u + tam_v:]
+    
+    return u, v, x
+
+def generate_valid_string(n):
+   
+      return 'aaaaaabbbbaaaaaaaaaaaa'
+
+def simulate_game(trials):
+    print("Am here")
+    machine_wins = 0
+    player_wins = 0
+
+    
+    for _ in range(trials):
+        n = random.randint(8, 30)
+        w = generate_valid_string(n)  # Generate a valid string in L
+        
+        u, v, x = dividir_w(w, n)  # Use the division strategy from the game
+        m = random.choice([0, 2, 3, 4, 5])  # Simulate player choosing a random m
+        
+        z = u + (v * m) + x  # Generate the new word after pumping
+        
+        if automata_pertenece_a_L(z):
+            player_wins += 1
+        else:
+            machine_wins += 1
+    
+    machine_win_rate = machine_wins / trials
+    print(f"Machine Win Rate: {machine_win_rate * 100:.2f}%")
+    print(f"Player Win Rate: {100 - (machine_win_rate * 100):.2f}%")
+
+if __name__ == "__main__":
+    simulate_game(100)
