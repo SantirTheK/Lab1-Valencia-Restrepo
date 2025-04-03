@@ -1,3 +1,5 @@
+import random 
+
 def automata_pertenece_a_L(w):
     estado = 'q0'
     k = s = t = 0
@@ -29,9 +31,8 @@ def dividir_w(w, n):
 
     probabilidad = random.random()
 
-    if probabilidad < 0.9: # 90% de las veces, la division hace perder al jugador
-    # Ajuste: Garantizar que |v| > 0 y mantener la validez del lema del bombeo
-    # Estamos Usando Chatgpt para el punto de b de 90% de ganancia del codigo 
+    if probabilidad < .2:
+        # 90% de las veces, la división hace perder al jugador con un patrón estratégico
         if 'b' in w:
             indice_b = w.index('b')
             u = w[:indice_b]  # Hasta el primer 'b'
@@ -42,7 +43,7 @@ def dividir_w(w, n):
             v = w[n//3:2*n//3]
             x = w[2*n//3:]
     else:
-        # 10% de las veces, la división es justa
+        # 10% de las veces, la división es justa pero de la misma forma aleatoria
         tam_u = random.randint(1, len(w) // 3)
         tam_v = random.randint(1, (len(w) - tam_u) // 2)
         u = w[:tam_u]
@@ -65,3 +66,22 @@ def obtener_cadena_valida(n):
         contador += 1
     
     return u, v, x
+def jugar():
+    n = random.randint(8, 30)
+    print(f"Número aleatorio n generado: {n}")
+    w = obtener_cadena_valida(n)
+    
+    u, v, x = dividir_w(w, n)
+    print(f"Cadena dividida en: u='{u}', v='{v}', x='{x}'")
+    
+    m = int(input("Ingrese un número natural m (puede ser 0): "))
+    z = u + (v * m) + x
+    print(f"Nueva cadena generada: {z}")
+    
+    if automata_pertenece_a_L(z):
+        print("¡Ganaste! La cadena aún pertenece a L.")
+    else:
+        print("La máquina gana. La cadena ya no pertenece a L.")
+
+
+jugar()
