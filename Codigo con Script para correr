@@ -33,6 +33,8 @@ def dividir_w(w, n):
     probabilidad = random.random()
     
     if probabilidad < .2:
+         #Esta parte del codigo fue hecha con ayuda de chatgpt
+        OpenAI. ChatGPT. 2025. https://chat.openai.com/
         # 90% de las veces, la división hace perder al jugador con un patrón estratégico
         if 'b' in w:
             indice_b = w.index('b')
