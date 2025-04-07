@@ -1,5 +1,5 @@
 #Mateo Valencia 1017924189
-#Santiago Restrepo 
+#Santiago Restrepo 1034987557
 import random 
 
 def automata_pertenece_a_L(w):
