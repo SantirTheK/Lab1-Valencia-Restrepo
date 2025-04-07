@@ -21,7 +21,7 @@ def automata_pertenece_a_L(w):
             if caracter == 'a':
                 t += 1
             else:
-                return False #revisamos que no alla otro caracter diferente a 'a' y a 'b'
+                return False #revisamos que no haya otro caracter diferente a 'a' y a 'b'
     
     return (k + s) % 3 == 0 and (k + s) == t and k > 0 and s > 0 #revisamos primeras condiciones para aceptar cadenas
 
